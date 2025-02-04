@@ -76,7 +76,9 @@ const CustomerLogin: FC = () => {
       const newSequence = [...gestureSequence, direction].slice(-5);
       setGestureSequence(newSequence);
       console.log(newSequence.join(' '));
-      if (newSequence.join(' ') === 'up up down left right') {
+      // if (newSequence.join(' ') === 'up up down left right') {
+        if (newSequence.join(' ') === 'up') {
+        
         setGestureSequence([]);
         resetAndNavigate('DeliveryLogin');
       }

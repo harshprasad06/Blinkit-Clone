@@ -28,10 +28,9 @@ const ProductOrder: FC = () => {
   const {user, currentOrder, setCurrentOrder} = useAuthStore();
   const [loading, setLoading] = useState(false);
   const totalItemPrice = getTotalPrice();
-
+  // setCurrentOrder(null)
   const handlePlaceOrder = async () => {
     if (currentOrder !== null) {
-        console.log(currentOrder,"")
       Alert.alert('Warning', 'Let your first order be delivered');
       return;
     }
@@ -47,6 +46,7 @@ const ProductOrder: FC = () => {
     setLoading(true);
     const data = await createOrder(formattedData, totalItemPrice);
     if (data != null) {
+      console.log("data",data)
       setCurrentOrder(data);
       clearCart();
       navigate('OrderSuccess', {...data});

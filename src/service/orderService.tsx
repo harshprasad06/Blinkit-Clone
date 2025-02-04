@@ -22,3 +22,12 @@ export const getOrderById = async (id:string) => {
       return null;
     }
   };
+  export const fetchCustomerOrder = async (userId:string) => {
+    try {
+      const response = await appAxios.get(`/orders?customerId=${userId}`);
+      return response?.data;
+    } catch (error) {
+      console.log('Error fetching Orders', error);
+      return null;
+    }
+  };

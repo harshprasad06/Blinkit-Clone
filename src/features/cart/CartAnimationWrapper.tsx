@@ -30,7 +30,6 @@ const CartAnimationWrapper:FC<CartAnimationWrapperProps> = ({cartCount,children}
             duration: 500,
             useNativeDriver: true,
         }).start(() => {
-            console.log("close")
             setHasAnimated(false);
         })
         

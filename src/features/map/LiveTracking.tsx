@@ -8,13 +8,19 @@ import LiveMap from './LiveMap';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {RFValue} from 'react-native-responsive-fontsize';
 import CustomText from '@components/ui/CustomText';
+import DeliveryDetails from './DeliveryDetails';
+import OrderSummary from './OrderSummary';
+import withLiveStatus from './withLiveStatus';
 
 const LiveTracking = () => {
   const {currentOrder, setCurrentOrder} = useAuthStore();
 
   const fetchOrderDetails = async () => {
-    const data = await getOrderById(currentOrder?._id as any);
+    const data = await getOrderById(currentOrder?.order?._id as string);
+    console.log("fetchOrderDetails",data)
+    if (data) {
     setCurrentOrder(data);
+    }
   };
 
   useEffect(() => {
@@ -22,13 +28,13 @@ const LiveTracking = () => {
   }, []);
   let msg = 'Packing your order';
   let time = 'Arriving in 10 Mintues';
-  if (currentOrder?.status === 'confirmed') {
+  if (currentOrder?.order?.status === 'confirmed') {
     msg = 'Arriving soon';
     time = 'Arriving in 8 Mintues';
-  } else if (currentOrder?.status === 'arriving') {
+  } else if (currentOrder?.order?.status === 'arriving') {
     msg = 'Order Picked Up';
     time = 'Arriving in 6 Mintues';
-  } else if (currentOrder?.status === 'delivered') {
+  } else if (currentOrder?.order?.status === 'delivered') {
     msg = 'Order Delivered';
     time = 'Fastest Delivery ⚡️';
   }
@@ -72,13 +78,14 @@ const LiveTracking = () => {
             </CustomText>
           </View>
         </View>
-        {/* <DeliveryDetails details={} /> */}
+        <DeliveryDetails details={currentOrder?.order?.customer} /> 
+        <OrderSummary order={currentOrder} />
       </ScrollView>
     </View>
   );
 };
 
-export default LiveTracking;
+export default withLiveStatus(LiveTracking);
 
 const styles = StyleSheet.create({
   container: {

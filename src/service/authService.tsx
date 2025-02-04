@@ -57,6 +57,7 @@ export const deliveryLogin = async (email: string, password: string) => {
       email,
       password,
     });
+    console.log("response",response.data)
     const {accesToken, refershToken, deliveryPartner} = response?.data;
     tokenStorage.set('accessToken', accesToken);
     tokenStorage.set('refreshToken', refershToken);

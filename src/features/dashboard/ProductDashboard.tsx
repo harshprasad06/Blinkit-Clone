@@ -29,6 +29,7 @@ import Content from '@components/dashboard/Content';
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated';
 import Icon  from 'react-native-vector-icons/Ionicons';
 import WithCart from '@features/cart/WithCart';
+import withLiveStatus from '@features/map/withLiveStatus';
 const NOTICE_HEIGHT = -(NoticeHeight + 12);
 
 const ProductDashboard: FC = () => {
@@ -138,7 +139,7 @@ const ProductDashboard: FC = () => {
   );
 };
 
-export default WithCart(withCollapsibleContext(ProductDashboard));
+export default withLiveStatus(WithCart(withCollapsibleContext(ProductDashboard)));
 
 const styles = StyleSheet.create({
   panelContainer: {
